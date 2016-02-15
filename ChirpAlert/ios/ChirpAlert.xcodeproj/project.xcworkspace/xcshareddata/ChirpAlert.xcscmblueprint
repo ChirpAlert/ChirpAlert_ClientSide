@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FFE05F398691119F58CA8C3777B36D66FD56E9BC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "FFE05F398691119F58CA8C3777B36D66FD56E9BC" : 0,
+    "A10513C0780449967A3B80F23EC2C59960761674" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BD9B35DD-C9F3-4F3D-9107-B7E2C958C0BF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "FFE05F398691119F58CA8C3777B36D66FD56E9BC" : "ClientSide\/",
+    "A10513C0780449967A3B80F23EC2C59960761674" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ChirpAlert",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ChirpAlert\/ios\/ChirpAlert.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wjohnson1000\/g15-functions-objects-js-homework.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A10513C0780449967A3B80F23EC2C59960761674"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:wjohnson1000\/ClientSide.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FFE05F398691119F58CA8C3777B36D66FD56E9BC"
+    }
+  ]
+}
