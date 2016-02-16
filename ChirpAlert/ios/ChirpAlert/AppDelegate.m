@@ -8,7 +8,7 @@
  */
 
 #import "AppDelegate.h"
-#import “RCTLinkingManager.h”
+#import "RCTLinkingManager.h"
 #import "RCTRootView.h"
 
 

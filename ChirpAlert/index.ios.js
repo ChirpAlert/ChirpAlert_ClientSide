@@ -14,20 +14,20 @@ import React, {
 } from 'react-native';
 
 class ChirpAlert extends Component {
+	componentDidMount() {
+	  LinkingIOS.addEventListener('url', this._handleOpenURL);
+	}
+	componentWillUnmount() {
+	  LinkingIOS.removeEventListener('url', this._handleOpenURL);
+	}
+	_handleOpenURL(event) {
+	  console.log(event.url);
+	}
   _onPressButton() {
-    console.log('fetch');
-    function twitterOAuth (callback) {
-      LinkingIOS.addEventListener('url', handleUrl)
-      function handleUrl (event) {
-        console.log(event);
-        callback(null, event.url)
-      }
-        LinkingIOS.removeEventListener('url', handleUrl)
-      }
     LinkingIOS.openURL(
      'http://127.0.0.1:3000/login/twitter'
     );
-    }
+   }
 //   fetch('http://127.0.0.1:3000/login/twitter')  
 //      .then(response => console.log(response))
 //      .catch((error) => {
