@@ -4,6 +4,7 @@
  */
 'use strict';
 import React, {
+	AsyncStorage,
   AppRegistry,
   Component,
   LinkingIOS,
@@ -21,7 +22,13 @@ class ChirpAlert extends Component {
 	  LinkingIOS.removeEventListener('url', this._handleOpenURL);
 	}
 	_handleOpenURL(event) {
-	  console.log(event.url);
+	  var sessionId = event.url.replace('chirpalert://&session=', '');
+		AsyncStorage.setItem("session_id", sessionId).then(function() {
+			var whatever = AsyncStorage.getItem("session_id");
+			whatever.then(function(someshit){
+				console.log(someshit);
+			});
+		});
 	}
   _onPressButton() {
     LinkingIOS.openURL(
