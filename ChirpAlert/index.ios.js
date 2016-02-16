@@ -6,6 +6,7 @@
 import React, {
   AppRegistry,
   Component,
+  LinkingIOS,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -15,9 +16,23 @@ import React, {
 class ChirpAlert extends Component {
   _onPressButton() {
     console.log('fetch');
-    fetch('http://127.0.0.1:3000/auth/callback')  
-      .then(response => console.log('fetched'))
-  }
+    function twitterOAuth (callback) {
+      LinkingIOS.addEventListener('url', handleUrl)
+      function handleUrl (event) {
+        console.log(event);
+        callback(null, event.url)
+      }
+        LinkingIOS.removeEventListener('url', handleUrl)
+      }
+    LinkingIOS.openURL(
+     'http://127.0.0.1:3000/login/twitter'
+    );
+    }
+//   fetch('http://127.0.0.1:3000/login/twitter')  
+//      .then(response => console.log(response))
+//      .catch((error) => {
+//        console.warn(error);
+//      });
   
   render() {
     return (
