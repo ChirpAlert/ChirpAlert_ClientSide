@@ -5,6 +5,7 @@
 'use strict';
 import React, {
 	ActionSheetIOS,
+	Geolocation,
 	AsyncStorage,
 	AppRegistry,
 	Component,
@@ -63,6 +64,18 @@ class ChirpAlert extends Component {
 		});	
 	}
 
+	_onLocateButton(){
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				console.log(position);
+			},
+			(error) => {
+				console.log(error.message)
+			},
+			{enableHighAccuracy:true, timeout: 20000, maximumAge: 1000}
+		);
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -76,6 +89,10 @@ class ChirpAlert extends Component {
 			<TouchableHighlight style={styles.button}
 			underlayColor='#99d9f4' onPress={this._onPressOtherButton}>
 			<Text style={styles.buttonText}>Go</Text>
+			</TouchableHighlight>
+			<TouchableHighlight style={styles.button}
+			underlayColor='#99d9f4' onPress={this._onLocateButton}>
+			<Text style={styles.buttonText}>Find yourself</Text>
 			</TouchableHighlight>
 			<TouchableHighlight style={styles.button}
 			underlayColor='#99d9f4' onPress={this._onShareButton}>
