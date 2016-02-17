@@ -27,7 +27,7 @@ class ChirpAlert extends Component {
 	}
 	_onPressButton() {
 		LinkingIOS.openURL(
-			'http://127.0.0.1:3000/login/twitter'
+			'http://127.0.0.1:3000/auth/login/twitter'
 		);
 	}
 	_onPressOtherButton() {
