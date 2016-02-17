@@ -4,6 +4,7 @@
  */
 'use strict';
 import React, {
+  ActionSheetIOS,
   AsyncStorage,
   AppRegistry,
   Component,
@@ -76,6 +77,21 @@ class LandingPage extends Component {
             passProps: {message: 'work'},
         });
     }
+  _onShareButton(){
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      url: 'http://chirpalert.com',
+      message: 'I saw a fucking bird #chirpalert',
+    },
+       (error) => {
+         console.error(error);
+    },
+    (success, method) => {
+      if (success) {
+        console.log('shared');
+      }
+    }); 
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -89,6 +105,10 @@ class LandingPage extends Component {
       <TouchableHighlight style={styles.button}
       underlayColor='#99d9f4' onPress={this._onPressOtherButton}>
       <Text style={styles.buttonText}>Go</Text>
+      </TouchableHighlight>
+      <TouchableHighlight style={styles.button}
+      underlayColor='#99d9f4' onPress={this._onShareButton}>
+      <Text style={styles.buttonText}>Share</Text>
       </TouchableHighlight>
       <Text style={styles.instructions}>
       To get started, edit index.ios.js

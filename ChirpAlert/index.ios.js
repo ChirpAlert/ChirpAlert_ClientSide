@@ -4,6 +4,7 @@
  */
 'use strict';
 import React, {
+	ActionSheetIOS,
 	AsyncStorage,
 	AppRegistry,
 	Component,
