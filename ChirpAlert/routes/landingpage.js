@@ -28,7 +28,7 @@ var MyButton = React.createClass({
   },
 });
 
-var nextpage = require('./nextpage');
+//var nextpage = require('./nextpage');
 
 class LandingPage extends Component {
     constructor(props) {
@@ -70,13 +70,13 @@ class LandingPage extends Component {
 
     });
   }
-  _OnPressThird(){
-    this.props.navigator.push({
-            title: "Next Page",
-            component: nextpage,
-            passProps: {message: 'work'},
-        });
-    }
+//  _OnPressThird(){
+//    this.props.navigator.push({
+//            title: "Next Page",
+//            component: nextpage,
+//            passProps: {message: 'work'},
+//        });
+//    }
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: 'http://chirpalert.com',
@@ -96,6 +96,22 @@ class LandingPage extends Component {
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				console.log(position);
+				fetch('http://127.0.0.1:3000/search/location', {
+					method: 'POST',
+					headers: {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					},
+					body: JSON.stringify(
+						{
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude
+						})
+				}).then(function(data) {
+					console.log(data);
+				}).catch(function(error) {
+					console.log(error);
+				});
 			},
 			(error) => {
 				console.log(error.message)
@@ -133,9 +149,9 @@ class LandingPage extends Component {
       Press Cmd+R to reload,{'\n'}
       Cmd+D or shake for dev menu
         </Text>
-        <TouchableOpacity onPress={this._OnPressThird.bind(this)} style={styles.button}>
+       {/*<TouchableOpacity onPress={this._OnPressThird.bind(this)} style={styles.button}>
           <MyButton label="Press Me!"/>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
       </View>
     );
   }
