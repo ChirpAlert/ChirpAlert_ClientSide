@@ -5,6 +5,7 @@
 'use strict';
 import React, {
 	ActionSheetIOS,
+	Geolocation,
 	AsyncStorage,
 	AppRegistry,
 	Component,
@@ -32,12 +33,12 @@ var ChirpAlert = React.createClass({
         );
     }
 });
- 
+
 var styles = StyleSheet.create({
     navigationContainer: {
         flex: 1
     }
 });
- 
+
 AppRegistry.registerComponent("ChirpAlert", () => ChirpAlert);
 //module.exports = ChirpAlert;

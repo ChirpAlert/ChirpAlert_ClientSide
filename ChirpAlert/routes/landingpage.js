@@ -62,7 +62,7 @@ class LandingPage extends Component {
         headers: {
           'Authorization': 'Bearer ' + token
         }
-      })  
+      })
       .then(response => console.log(response))
       .catch((error) => {
         console.warn(error);
@@ -89,8 +89,20 @@ class LandingPage extends Component {
       if (success) {
         console.log('shared');
       }
-    }); 
+    });
   }
+
+  _onLocateButton(){
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				console.log(position);
+			},
+			(error) => {
+				console.log(error.message)
+			},
+			{enableHighAccuracy:true, timeout: 20000, maximumAge: 1000}
+		);
+	}
 
   render() {
     return (
@@ -110,6 +122,10 @@ class LandingPage extends Component {
       underlayColor='#99d9f4' onPress={this._onShareButton}>
       <Text style={styles.buttonText}>Share</Text>
       </TouchableHighlight>
+      <TouchableHighlight style={styles.button}
+			underlayColor='#99d9f4' onPress={this._onLocateButton}>
+			<Text style={styles.buttonText}>Find yourself</Text>
+			</TouchableHighlight>
       <Text style={styles.instructions}>
       To get started, edit index.ios.js
       </Text>
