@@ -20,6 +20,7 @@ import React, {
 } from 'react-native';
 
 var LandingPage = require('./routes/landingpage');
+var singleBird = require('./routes/singleBird')
 
 var ChirpAlert = React.createClass({
     render: function() {
@@ -27,8 +28,8 @@ var ChirpAlert = React.createClass({
             <NavigatorIOS
                 style={styles.navigationContainer}
                 initialRoute={{
-                title: "Navigator Example",
-                component: LandingPage,
+                title: "Chirp Alert",
+                component: singleBird,
             }} />
         );
     }
