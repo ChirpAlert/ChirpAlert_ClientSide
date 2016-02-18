@@ -29,7 +29,6 @@ class singleBird extends Component {
       recordist: "billy"
     };
   }
-
   componentDidMount(){
     this.setState({
       name: 'Grasshopper-Warbler'

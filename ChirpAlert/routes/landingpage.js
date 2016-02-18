@@ -96,7 +96,7 @@ class LandingPage extends Component {
   _onLocateButton(){
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
-				console.log(position);
+				//console.log(position);
 				fetch('http://127.0.0.1:3000/search/location', {
 					method: 'POST',
 					headers: {
@@ -108,13 +108,15 @@ class LandingPage extends Component {
 							latitude: position.coords.latitude,
 							longitude: position.coords.longitude
 						})
-				}).then(function(data) {
-          this.props.navigator.push({
-            title: "Next Page",
-            component: searchResults,
-            passProps: {message: 'data'},
+				}).then((data) => data.json())
+          .then((responseData) => {
+            console.log(responseData)
+            this.props.navigator.push({
+              title: "Search Results",
+              component: searchResults,
+              passProps: {birdData: responseData},
             });
-				}.bind(this))
+				})
 			},
 			(error) => {
 				console.log(error.message)

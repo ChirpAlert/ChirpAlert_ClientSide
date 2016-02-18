@@ -56,7 +56,7 @@ class searchResults extends Component {
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      birdData: savedBirds, 
+      birdData: this.props.birdData, 
       dataSource: dataSource
     };
   }
@@ -69,20 +69,20 @@ class searchResults extends Component {
   renderRow(rowData, sectionID, rowID) {
     return (
       <TouchableHighlight
-          underlayColor='#dddddd' onPress={this._goToBird.bind(this, rowID)}>
+          underlayColor='#dddddd' onPress={this._goToBird.bind(this, rowData)}>
         <View style={styles.lineOne}>
-          <Text style={styles.headerOne}>{rowData.bird.englishName}</Text>
-          <Text style={styles.subHeader}>{rowData.bird.loc}</Text>
+          <Text style={styles.headerOne}> {rowData.en} </Text>
+          <Text style={styles.subHeader}> {rowData.en} </Text>
           <Image style={styles.playIcon} source={{uri: 'http://placehold.it/50x50'}}/>
         </View>
       </TouchableHighlight>
     );
   }
-  _goToBird(rowID) {
-    console.log(rowID);
+  _goToBird(rowData) {
+//    console.log(rowID);
     this.props.navigator.push({
       component: singleBird,
-      passProps: {name: this.state.dataSource._dataBlob.s1[rowID].bird.englishName}
+      passProps: {name: rowData.en}
     })
   }
 
