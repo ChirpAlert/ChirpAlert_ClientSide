@@ -19,7 +19,7 @@ class singleBird extends Component {
     super(props);
     this.state = {
       title: "Single Bird",
-      name: 'Red Breasted Robin',
+      name: '',
       species: 'Birdy',
       country: 'english',
       loc: 'english',
@@ -31,7 +31,7 @@ class singleBird extends Component {
   }
   componentDidMount(){
     this.setState({
-      name: 'Grasshopper-Warbler'
+      name: this.props.name
     })
   }
   getSound(){

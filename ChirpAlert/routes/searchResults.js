@@ -14,41 +14,6 @@ import React, {
 } from 'react-native';
 
 var singleBird = require('./singleBird');
-var savedBirds = [
-  {
-    twitterId: 'bestbird',
-    bird: {
-      id: 3,
-      englishName: 'sparrow',
-      loc: 'denver',
-      timeSaved: 'this morning',
-      imageUrl: 'google it',
-      audioUrl: 'google it'
-    }
-  },
-  {
-    twitterId: 'yahoobird',
-    bird: {
-      id: 8,
-      englishName: 'cardinal',
-      loc: 'hawaii',
-      timeSaved: 'this morning',
-      imageUrl: 'google it',
-      audioUrl: 'google it'
-    }
-  },
-  {
-    twitterId: 'worstbird',
-    bird: {
-      id: 9,
-      englishName: 'robin',
-      loc: 'fremont',
-      timeSaved: 'this morning',
-      imageUrl: 'google it',
-      audioUrl: 'google it'
-    }
-  }
-];
 
 class searchResults extends Component {
   constructor(props) {
