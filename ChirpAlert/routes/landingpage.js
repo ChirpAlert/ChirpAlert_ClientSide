@@ -28,7 +28,8 @@ var MyButton = React.createClass({
   },
 });
 
-//var nextpage = require('./nextpage');
+var savedBirdList = require('./savedBirdList');
+var searchResults = require('./searchResults');
 
 class LandingPage extends Component {
 	constructor(props) {
