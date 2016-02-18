@@ -19,7 +19,7 @@ import React, {
 	View
 } from 'react-native';
 
-var LandingPage = require('./routes/landingpage');
+var landingPage = require('./routes/landingpage');
 var singleBird = require('./routes/singleBird')
 var searchResults = require('./routes/searchResults')
 
@@ -30,7 +30,7 @@ var ChirpAlert = React.createClass({
                 style={styles.navigationContainer}
                 initialRoute={{
                 title: "Search Results",
-                component: singleBird,
+                component: landingPage,
             }}/>
         );
     }

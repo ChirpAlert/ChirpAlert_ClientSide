@@ -29,12 +29,11 @@ class singleBird extends Component {
       recordist: "billy"
     };
   }
-
   componentDidMount(){
     this.setState({
       name: this.props.name
     })
-
+  }
   getSound(){
     return LinkingIOS.openURL(this.state.recording);
   }
