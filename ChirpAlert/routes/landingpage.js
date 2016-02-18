@@ -128,7 +128,10 @@ class LandingPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>ChirpAlert</Text>
+        <Image
+          style={styles.image}
+          source={require('../header.png')}>
+        </Image>
         <Text style={styles.pun}>{this.state.pun}</Text>
 
       {/*<TouchableHighlight style={styles.button}
@@ -203,8 +206,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   pun: {
+    fontFamily: 'Amatic-Bold',
     color: 'white',
-    marginBottom: 10
+    fontSize: 32,
+    marginTop: 30
   }
 });
 AppRegistry.registerComponent('LandingPage', () => LandingPage);
