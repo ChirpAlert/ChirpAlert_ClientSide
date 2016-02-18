@@ -73,7 +73,6 @@ class searchResults extends Component {
         <View style={styles.lineOne}>
           <Text style={styles.headerOne}>{rowData.bird.englishName}</Text>
           <Text style={styles.subHeader}>{rowData.bird.loc}</Text>
-          <Image style={styles.playIcon} source={{uri: 'http://placehold.it/50x50'}}/>
         </View>
       </TouchableHighlight>
     );
@@ -104,14 +103,6 @@ const styles = StyleSheet.create({
   },
   birdInfo: {
     padding: 10,
-  },
-  birdPic: {
-    width: 50,
-    height: 50
-  },
-  playIcon: {
-    width: 50,
-    height: 50
   },
   box: {
     flex: 1,

@@ -28,6 +28,8 @@ var MyButton = React.createClass({
   },
 });
 
+var savedBirdList = require('./savedBirdList');
+
 var searchResults = require('./searchResults');
 
 class LandingPage extends Component {
