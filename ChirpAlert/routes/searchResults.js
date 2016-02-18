@@ -47,7 +47,7 @@ class searchResults extends Component {
 //    console.log(rowID);
     this.props.navigator.push({
       component: singleBird,
-      passProps: {name: rowData.en}
+      passProps: {bird: rowData}
     })
   }
 
