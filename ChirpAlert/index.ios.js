@@ -29,8 +29,8 @@ var ChirpAlert = React.createClass({
             <NavigatorIOS
                 style={styles.navigationContainer}
                 initialRoute={{
-                title: "Search Results",
                 component: LandingPage,
+                title: "Chirp Alert",
             }}/>
         );
     }
