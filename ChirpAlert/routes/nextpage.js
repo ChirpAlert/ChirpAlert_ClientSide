@@ -15,21 +15,21 @@ import React, {
 
 
 class NextPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            message: this.props.message
-        };
-    }
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.heading}>
-                    A message to you: {this.props.message}!
-                </Text>
-            </View>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: this.props.message
+    };
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+          <Text style={styles.heading}>
+              A message to you: {this.props.message}!
+          </Text>
+      </View>
+    );
+  }
 }
 var styles = StyleSheet.create({
     container: {
