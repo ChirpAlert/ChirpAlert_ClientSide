@@ -54,19 +54,25 @@ class searchResults extends Component {
   constructor(props) {
     super(props);
     var dataSource = new ListView.DataSource(
-      {rowHasChanged: (r1, r2) => r1.guid !== r2.guid});
+      {rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: dataSource.cloneWithRows(this.props.listings)
+      birdData: savedBirds, 
+      dataSource: dataSource
     };
+  }
+  componentDidMount(){
+    this.setState({
+      dataSource:this.state.dataSource.cloneWithRows(this.state.birdData),
+    })
   }
 
   renderRow(rowData, sectionID, rowID) {
     return (
       <TouchableHighlight
           underlayColor='#dddddd'>
-        <View>
-          <Text>{savedBirds.bird.englishName}</Text>
-          <Text>{rowData.title}</Text>
+        <View style={styles.lineOne}>
+          <Text style={styles.headerOne}>{rowData.bird.englishName}</Text>
+          <Text style={styles.subHeader}>{rowData.bird.loc}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -74,7 +80,7 @@ class searchResults extends Component {
 
   render() {
     return (
-      <ListView
+      <ListView 
         dataSource={this.state.dataSource}
         renderRow={this.renderRow.bind(this)}/>
     );
@@ -91,6 +97,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  subHeader: {
+    flex: 1,
   },
   birdInfo: {
     padding: 10,
@@ -114,6 +123,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
+    borderColor: 'lightgrey',
+    borderStyle: 'solid',
+    borderWidth: 1,
   },
   lastLine: {
     justifyContent: 'space-around',
