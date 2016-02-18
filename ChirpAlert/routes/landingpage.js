@@ -15,7 +15,8 @@ import React, {
   Text,
   TouchableHighlight,
   TouchableOpacity,
-  View
+  View,
+	Image
 } from 'react-native';
 
 var MyButton = React.createClass({
@@ -143,15 +144,21 @@ class LandingPage extends Component {
       <Text style={styles.buttonText}>Share</Text>
       </TouchableHighlight>*/}
         <View style={styles.buttonContainer}>
-          <TouchableHighlight style={styles.button}
-    			underlayColor='#99d9f4' onPress={this._onLocateButton.bind(this)}>
-    			<Text style={styles.buttonText}>Find yourself</Text>
-    			</TouchableHighlight>
+          <TouchableHighlight
+            onPress={this._onLocateButton}>
+            <Image
+  						style={styles.image}
+      				source={require('../bird_search.png')}>
+      			</Image>
+        </TouchableHighlight>
 
-          <TouchableHighlight style={styles.button}
-    			underlayColor='#99d9f4' onPress={this._onSaveListButton}>
-    			<Text style={styles.buttonText}>My birds</Text>
-    			</TouchableHighlight>
+        <TouchableHighlight
+          onPress={this._onSaveListButton}>
+          <Image
+            style={styles.image}
+            source={require('../my_birds.png')}>
+          </Image>
+      </TouchableHighlight>
         </View>
       </View>
     );
@@ -171,9 +178,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
+	image: {
+
+	},
   header: {
     color: 'white',
     fontSize: 60,
