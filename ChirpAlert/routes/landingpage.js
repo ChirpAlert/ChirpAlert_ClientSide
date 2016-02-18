@@ -145,7 +145,7 @@ class LandingPage extends Component {
       </TouchableHighlight>*/}
         <View style={styles.buttonContainer}>
           <TouchableHighlight
-            onPress={this._onLocateButton}>
+            onPress={this._onLocateButton.bind(this)}>
             <Image
   						style={styles.image}
       				source={require('../bird_search.png')}>
