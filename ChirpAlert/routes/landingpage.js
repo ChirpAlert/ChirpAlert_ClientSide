@@ -72,7 +72,6 @@ class LandingPage extends Component {
       .catch((error) => {
         console.warn(error);
       });
-
     });
   }
   _onShareButton(){
@@ -90,7 +89,32 @@ class LandingPage extends Component {
     });
   }
   _onSaveListButton(){
-    //go to save page
+    AsyncStorage.getItem("token").then(function(token){
+      if(token){
+        fetch('http://127.0.0.1:3000/users/getbirdlist', {
+          method: 'GET',
+          headers: {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).then((data) => data.json())
+          .then((responseData) => {
+            console.log(responseData);
+            this.props.navigator.push({
+              title: "Search Results",
+              component: searchResults,
+              passProps: {birdData: responseData},
+            });
+          }).catch((error) => {
+            console.warn(error);
+          });
+        } else {
+        LinkingIOS.openURL(
+          'http://127.0.0.1:3000/auth/login/twitter'
+        );
+      }
+    }.bind(this));
   }
 
   _onLocateButton(){
@@ -153,15 +177,15 @@ class LandingPage extends Component {
   						style={styles.image}
       				source={require('../bird_search.png')}>
       			</Image>
-        </TouchableHighlight>
+          </TouchableHighlight>
 
-        <TouchableHighlight
-          onPress={this._onSaveListButton}>
-          <Image
-            style={styles.image}
-            source={require('../my_birds.png')}>
-          </Image>
-      </TouchableHighlight>
+          <TouchableHighlight
+            onPress={this._onSaveListButton.bind(this)}>
+            <Image
+              style={styles.image}
+              source={require('../my_birds.png')}>
+            </Image>
+          </TouchableHighlight>
         </View>
       </View>
     );

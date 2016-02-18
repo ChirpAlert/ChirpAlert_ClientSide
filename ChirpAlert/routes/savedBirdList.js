@@ -56,7 +56,7 @@ class searchResults extends Component {
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      birdData: savedBirds, 
+      birdData: this.props.birdData, 
       dataSource: dataSource
     };
   }
@@ -80,7 +80,7 @@ class searchResults extends Component {
 
   render() {
     return (
-      <ListView 
+      <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderRow.bind(this)}/>
     );

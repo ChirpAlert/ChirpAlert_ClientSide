@@ -18,6 +18,7 @@ class singleBird extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      bird_id: '',
       title: "Single Bird",
       name: '',
       species: '',
@@ -30,7 +31,9 @@ class singleBird extends Component {
     };
   }
   componentDidMount(){
+    LinkingIOS.addEventListener('url', this._handleOpenURL);
     this.setState({
+      bird_id: this.props.bird.id,
       name: this.props.bird.en,
       species: this.props.bird.gen + " " + this.props.bird.sp,
       country: this.props.bird.cnt,
@@ -40,12 +43,53 @@ class singleBird extends Component {
       recordist: this.props.bird.rec
     })
   }
+  componentWillUnmount() {
+    LinkingIOS.removeEventListener('url', this._handleOpenURL);
+  }
   getSound(){
     return LinkingIOS.openURL(this.state.recording);
   }
   getWiki(){
     return LinkingIOS.openURL(
       'https://en.wikipedia.org/wiki/'+this.state.name);
+  }
+
+  _onSaveButton(){
+    AsyncStorage.getItem("token").then(function(token){
+      if(token){
+        fetch('http://127.0.0.1:3000/users/savebird', {
+          method: 'POST',
+          headers: {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({
+            bird_id: Number(this.state.bird_id),
+            en: this.state.name,
+            loc: this.state.loc,
+            date: Date.now(),
+            uid: 'something'
+          })
+        })
+        .then(response => console.log(response))
+        .catch((error) => {
+          console.warn(error);
+        });
+      }
+      else {
+        LinkingIOS.openURL(
+          'http://127.0.0.1:3000/auth/login/twitter'
+        );
+      }
+    }.bind(this))
+      .catch(function(err){
+        console.log(err);
+      });
+  }
+  _handleOpenURL(event) {
+    var token = event.url.replace('chirpalert://&token=', '');
+    AsyncStorage.setItem("token", token);
   }
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
@@ -98,7 +142,7 @@ class singleBird extends Component {
           </Text>
         </View>
         <View style={styles.lastLine}>
-          <TouchableHighlight style={styles.button} underlayColor='#99d9f4' onPress={this.addToSavedList}>
+          <TouchableHighlight style={styles.button} underlayColor='#99d9f4' onPress={this._onSaveButton.bind(this)}>
             <Text style={styles.buttonText}>Add to saved list</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.twitterButton} underlayColor='#99d9f4' onPress={this._onShareButton}>
