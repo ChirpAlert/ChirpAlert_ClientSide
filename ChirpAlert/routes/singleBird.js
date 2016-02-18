@@ -18,7 +18,7 @@ class singleBird extends Component {
     super(props);
     this.state = {
       title: "Single Bird",
-      name: 'Sparrow',
+      name: '',
       species: 'Birdy',
       country: 'english',
       loc: 'english',
@@ -26,6 +26,11 @@ class singleBird extends Component {
       reclength: 56,
       recordist: "billy"
     };
+  }
+  componentDidMount(){
+    this.setState({
+      name: this.props.name
+    })
   }
   getWiki(){
     return LinkingIOS.openURL(
