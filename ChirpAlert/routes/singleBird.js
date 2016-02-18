@@ -34,6 +34,7 @@ class singleBird extends Component {
     this.setState({
       name: this.props.name
     })
+	}
 
   getSound(){
     return LinkingIOS.openURL(this.state.recording);
