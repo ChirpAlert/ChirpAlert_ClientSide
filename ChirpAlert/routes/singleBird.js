@@ -19,7 +19,7 @@ class singleBird extends Component {
     super(props);
     this.state = {
       title: "Single Bird",
-      name: '',
+      name: 'Red Breasted Robin',
       species: 'Birdy',
       country: 'english',
       loc: 'english',
@@ -32,9 +32,9 @@ class singleBird extends Component {
 
   componentDidMount(){
     this.setState({
-      name: this.props.name
+      name: 'Grasshopper-Warbler'
     })
-
+  }
   getSound(){
     return LinkingIOS.openURL(this.state.recording);
   }
@@ -45,7 +45,7 @@ class singleBird extends Component {
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: 'http://chirpalert.com',
-      message: 'I saw a fucking bird #chirpalert',
+      message: 'I heard this bird on #chirpalert',
     },
        (error) => {
          console.error(error);
@@ -57,22 +57,21 @@ class singleBird extends Component {
     });
   }
 
-
   render(){
     return(
-      <View style={styles.box}>
+      <View style={styles.container}>
         <View style={styles.lineOne}>
           <Image
             style={styles.singleBirdImage1}
             source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-        />
-        <TouchableHighlight style={styles.addToListButton} underlayColor='#99d9f4 ' onPress={this.getSound.bind(this)}>
-         <Text style={styles.buttonText}>play</Text>
-       </TouchableHighlight>
+            />
+          <TouchableHighlight style={styles.button} underlayColor='#99d9f4 ' onPress={this.getSound.bind(this)}>
+           <Text style={styles.buttonText}>Play sound</Text>
+         </TouchableHighlight>
         </View>
         <View>
           <Text style={styles.headerOne}>
-            English Name: {this.state.name}
+            {this.state.name}
           </Text>
           <Text style={styles.wikiLink} onPress={this.getWiki.bind(this)}>
             Wiki
@@ -97,7 +96,7 @@ class singleBird extends Component {
           </Text>
         </View>
         <View style={styles.lastLine}>
-          <TouchableHighlight style={styles.addToListButton} underlayColor='#99d9f4' onPress={this.addToSavedList}>
+          <TouchableHighlight style={styles.button} underlayColor='#99d9f4' onPress={this.addToSavedList}>
             <Text style={styles.buttonText}>Add to saved list</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.twitterButton} underlayColor='#99d9f4' onPress={this._onShareButton}>
@@ -113,33 +112,60 @@ class singleBird extends Component {
 }
 
 const styles = StyleSheet.create({
-  wikiLink: {
-    fontSize: 12,
-  },
-  headerOne: {
-    flex: 2,
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  birdInfo: {
-    padding: 10,
-
-  },
-  box: {
+  container: {
     flex: 1,
     backgroundColor: '#527FE4',
     borderColor: '#000033',
     borderWidth: 1,
     paddingTop: 75,
-    backgroundColor: '#809C00',
+    justifyContent: 'flex-start',
     alignItems: 'stretch',
+    backgroundColor: '#913991',
   },
-  container: {
+  buttonContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#809C00',
-    paddingTop: 100,
+  },
+  header: {
+    color: 'white',
+    fontSize: 60,
+  },
+  buttonText: {
+    color: 'white',
+  },
+  button: {
+    height: 50,
+    width: 150,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  pun: {
+    color: 'white',
+    marginBottom: 10
+  },
+  wikiLink: {
+    fontSize: 12,
+    color: '#48BBEC',
+    textAlign: 'center'
+  },
+  headerOne: {
+    flex: 2,
+    fontSize: 30,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  birdInfo: {
+    paddingBottom: 5,
+    paddingTop: 5,
+    paddingLeft: 40,
+    color: 'white'
   },
   lineOne: {
     justifyContent: 'space-around',
@@ -160,36 +186,6 @@ const styles = StyleSheet.create({
     width: 100,
     paddingTop: 100,
   },
-  singleBirdImage2: {
-    width: 100,
-    paddingTop: 100,
-  },
-  welcome: {
-    flex: 2,
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 36,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-  addToListButton: {
-    height: 36,
-    width: 150,
-    backgroundColor: '#48BBEC ',
-    borderColor: '#48BBEC ',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
 });
 
 module.exports = singleBird
