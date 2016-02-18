@@ -19,7 +19,7 @@ class singleBird extends Component {
     super(props);
     this.state = {
       title: "Single Bird",
-      name: 'Sparrow',
+      name: '',
       species: 'Birdy',
       country: 'english',
       loc: 'english',
@@ -29,6 +29,12 @@ class singleBird extends Component {
       recordist: "billy"
     };
   }
+
+  componentDidMount(){
+    this.setState({
+      name: this.props.name
+    })
+
   getSound(){
     return LinkingIOS.openURL(this.state.recording);
   }
