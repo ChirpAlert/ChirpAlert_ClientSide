@@ -20,9 +20,9 @@ class singleBird extends Component {
     this.state = {
       title: "Single Bird",
       name: '',
-      species: 'Birdy',
-      country: 'english',
-      loc: 'english',
+      species: '',
+      country: '',
+      loc: '',
       recording: 'http:\/\/www.xeno-canto.org\/134880\/download',
       rectype: 'english',
       reclength: 56,
@@ -31,7 +31,13 @@ class singleBird extends Component {
   }
   componentDidMount(){
     this.setState({
-      name: this.props.name
+      name: this.props.bird.en,
+      species: this.props.bird.gen + " " + this.props.bird.sp,
+      country: this.props.bird.cnt,
+      loc: this.props.bird.loc,
+      recording: this.props.bird.file,
+      rectype: this.props.bird.type,
+      recordist: this.props.bird.rec
     })
   }
   getSound(){
@@ -86,9 +92,6 @@ class singleBird extends Component {
           </Text>
           <Text style={styles.birdInfo}>
             Type of recording: {this.state.rectype}
-          </Text>
-          <Text style={styles.birdInfo}>
-            Length of recording: {this.state.reclength}
           </Text>
           <Text style={styles.birdInfo}>
             Recorded by: {this.state.recordist}
