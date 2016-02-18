@@ -29,23 +29,26 @@ var MyButton = React.createClass({
 });
 
 var savedBirdList = require('./savedBirdList');
+
 var searchResults = require('./searchResults');
 
 class LandingPage extends Component {
 	constructor(props) {
         super(props);
         this.state = {
-            title: "",
-            component: "",
-            passProps: ""
+            pun: ""
         };
     }
   componentDidMount() {
     LinkingIOS.addEventListener('url', this._handleOpenURL);
+    fetch('http://127.0.0.1:3000/pun').then(function(pun){
+      this.setState({pun: pun._bodyText});
+    }.bind(this));
   }
   componentWillUnmount() {
     LinkingIOS.removeEventListener('url', this._handleOpenURL);
   }
+
   _handleOpenURL(event) {
     var token = event.url.replace('chirpalert://&token=', '');
     AsyncStorage.setItem("token", token);
@@ -71,18 +74,6 @@ class LandingPage extends Component {
 
     });
   }
-	_punTime() {
-		fetch('http://127.0.0.1:3000/pun').then(function(pun){
-			console.log(pun._bodyText);
-		});
-	}
-//  _OnPressThird(){
-//    this.props.navigator.push({
-//            title: "Next Page",
-//            component: nextpage,
-//            passProps: {message: 'work'},
-//        });
-//    }
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: 'http://chirpalert.com',
@@ -96,6 +87,9 @@ class LandingPage extends Component {
         console.log('shared');
       }
     });
+  }
+  _onSaveListButton(){
+    //go to save page
   }
 
   _onLocateButton(){
@@ -114,10 +108,12 @@ class LandingPage extends Component {
 							longitude: position.coords.longitude
 						})
 				}).then(function(data) {
-					console.log(data);
-				}).catch(function(error) {
-					console.log(error);
-				});
+          this.props.navigator.push({
+            title: "Next Page",
+            component: searchResults,
+            passProps: {message: 'data'},
+            });
+				}.bind(this))
 			},
 			(error) => {
 				console.log(error.message)
@@ -129,10 +125,10 @@ class LandingPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text style={styles.welcome}>
-      Welcome to React Native!
-      </Text>
-      <TouchableHighlight style={styles.button}
+        <Text style={styles.header}>ChirpAlert</Text>
+        <Text style={styles.pun}>{this.state.pun}</Text>
+
+      {/*<TouchableHighlight style={styles.button}
       underlayColor='#99d9f4' onPress={this._onPressButton}>
       <Text style={styles.buttonText}>Go</Text>
       </TouchableHighlight>
@@ -143,25 +139,18 @@ class LandingPage extends Component {
       <TouchableHighlight style={styles.button}
       underlayColor='#99d9f4' onPress={this._onShareButton}>
       <Text style={styles.buttonText}>Share</Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.button}
-			underlayColor='#99d9f4' onPress={this._onLocateButton}>
-			<Text style={styles.buttonText}>Find yourself</Text>
-			</TouchableHighlight>
-      <TouchableHighlight style={styles.button}
-			underlayColor='#99d9f4' onPress={this._punTime}>
-			<Text style={styles.buttonText}>Get Pun</Text>
-			</TouchableHighlight>
-      <Text style={styles.instructions}>
-      To get started, edit index.ios.js
-      </Text>
-      <Text style={styles.instructions}>
-      Press Cmd+R to reload,{'\n'}
-      Cmd+D or shake for dev menu
-        </Text>
-       {/*<TouchableOpacity onPress={this._OnPressThird.bind(this)} style={styles.button}>
-          <MyButton label="Press Me!"/>
-        </TouchableOpacity>*/}
+      </TouchableHighlight>*/}
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight style={styles.button}
+    			underlayColor='#99d9f4' onPress={this._onLocateButton}>
+    			<Text style={styles.buttonText}>Find yourself</Text>
+    			</TouchableHighlight>
+
+          <TouchableHighlight style={styles.button}
+    			underlayColor='#99d9f4' onPress={this._onSaveListButton}>
+    			<Text style={styles.buttonText}>My birds</Text>
+    			</TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -169,35 +158,41 @@ class LandingPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: '#527FE4',
+    borderColor: '#000033',
+    borderWidth: 1,
+    paddingTop: 75,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#913991',
+  },
+  buttonContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    flex: 2,
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  header: {
+    color: 'white',
+    fontSize: 60,
   },
   buttonText: {
     color: 'white',
   },
   button: {
-    height: 36,
-    width: 36,
-    flex: 1,
-    backgroundColor: '#48BBEC ',
-    borderColor: '#48BBEC ',
+    height: 200,
+    width: 200,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  pun: {
+    color: 'white',
+    marginBottom: 10
   }
 });
 AppRegistry.registerComponent('LandingPage', () => LandingPage);
