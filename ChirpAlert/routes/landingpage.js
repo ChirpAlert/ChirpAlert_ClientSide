@@ -28,10 +28,10 @@ var MyButton = React.createClass({
   },
 });
 
-var nextpage = require('./nextpage');
+//var nextpage = require('./nextpage');
 
 class LandingPage extends Component {
-    constructor(props) {
+	constructor(props) {
         super(props);
         this.state = {
             title: "",
@@ -70,13 +70,18 @@ class LandingPage extends Component {
 
     });
   }
-  _OnPressThird(){
-    this.props.navigator.push({
-            title: "Next Page",
-            component: nextpage,
-            passProps: {message: 'work'},
-        });
-    }
+	_punTime() {
+		fetch('http://127.0.0.1:3000/pun').then(function(pun){
+			console.log(pun._bodyText);
+		});
+	}
+//  _OnPressThird(){
+//    this.props.navigator.push({
+//            title: "Next Page",
+//            component: nextpage,
+//            passProps: {message: 'work'},
+//        });
+//    }
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: 'http://chirpalert.com',
@@ -96,6 +101,22 @@ class LandingPage extends Component {
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				console.log(position);
+				fetch('http://127.0.0.1:3000/search/location', {
+					method: 'POST',
+					headers: {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					},
+					body: JSON.stringify(
+						{
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude
+						})
+				}).then(function(data) {
+					console.log(data);
+				}).catch(function(error) {
+					console.log(error);
+				});
 			},
 			(error) => {
 				console.log(error.message)
@@ -126,6 +147,10 @@ class LandingPage extends Component {
 			underlayColor='#99d9f4' onPress={this._onLocateButton}>
 			<Text style={styles.buttonText}>Find yourself</Text>
 			</TouchableHighlight>
+      <TouchableHighlight style={styles.button}
+			underlayColor='#99d9f4' onPress={this._punTime}>
+			<Text style={styles.buttonText}>Get Pun</Text>
+			</TouchableHighlight>
       <Text style={styles.instructions}>
       To get started, edit index.ios.js
       </Text>
@@ -133,9 +158,9 @@ class LandingPage extends Component {
       Press Cmd+R to reload,{'\n'}
       Cmd+D or shake for dev menu
         </Text>
-        <TouchableOpacity onPress={this._OnPressThird.bind(this)} style={styles.button}>
+       {/*<TouchableOpacity onPress={this._OnPressThird.bind(this)} style={styles.button}>
           <MyButton label="Press Me!"/>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
       </View>
     );
   }

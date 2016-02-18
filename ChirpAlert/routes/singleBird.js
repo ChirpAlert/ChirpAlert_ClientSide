@@ -48,7 +48,7 @@ class singleBird extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
+      <View style={styles.box}>
         <View style={styles.lineOne}>
           <Image
             style={styles.singleBirdImage1}
@@ -111,33 +111,46 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  birdInfo: {
+    padding: 10,
+
+  },
+  box: {
+    flex: 1,
+    backgroundColor: '#527FE4',
+    borderColor: '#000033',
+    borderWidth: 1,
+    paddingTop: 75,
+    backgroundColor: '#809C00',
+    alignItems: 'stretch',
+  },
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    paddingTop: 50,
+    backgroundColor: '#809C00',
+    paddingTop: 100,
   },
   lineOne: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
   },
   lastLine: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
+
   },
   twitterImage: {
-    width: 50,
-    height: 50,
-    paddingTop: 100,
+    width: 100,
+    height: 100,
   },
   singleBirdImage1: {
-    width: 50,
+    width: 100,
     paddingTop: 100,
   },
   singleBirdImage2: {
-    width: 50,
+    width: 100,
     paddingTop: 100,
   },
   welcome: {
@@ -153,11 +166,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
+    textAlign: 'center',
   },
-  button: {
+  addToListButton: {
     height: 36,
-    width: 36,
-    flex: 1,
+    width: 150,
     backgroundColor: '#48BBEC ',
     borderColor: '#48BBEC ',
     borderWidth: 1,
