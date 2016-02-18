@@ -1,5 +1,6 @@
 'use strict';
 import React, {
+  ActionSheetIOS,
   AsyncStorage,
   AppRegistry,
   Component,
@@ -29,6 +30,20 @@ class singleBird extends Component {
   getWiki(){
     return LinkingIOS.openURL(
       'https://en.wikipedia.org/wiki/'+this.state.name);
+  }
+  _onShareButton(){
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      url: 'http://chirpalert.com',
+      message: 'I saw a fucking bird #chirpalert',
+    },
+       (error) => {
+         console.error(error);
+    },
+    (success, method) => {
+      if (success) {
+        console.log('shared');
+      }
+    });
   }
 
   render(){
@@ -74,7 +89,7 @@ class singleBird extends Component {
           <TouchableHighlight style={styles.addToListButton} underlayColor='#99d9f4' onPress={this.addToSavedList}>
             <Text style={styles.buttonText}>Add to saved list</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.twitterButton} underlayColor='#99d9f4' onPress={this.twitterButton}>
+          <TouchableHighlight style={styles.twitterButton} underlayColor='#99d9f4' onPress={this._onShareButton}>
             <Image
               style={styles.twitterImage}
               source={{uri: 'http://designshack.net/wp-content/uploads/larrybird-2.jpg'}}
