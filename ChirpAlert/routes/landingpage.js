@@ -72,7 +72,6 @@ class LandingPage extends Component {
       .catch((error) => {
         console.warn(error);
       });
-
     });
   }
   _onShareButton(){
