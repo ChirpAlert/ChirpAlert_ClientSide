@@ -12,14 +12,23 @@ import React, {
   View
 } from 'react-native';
 
-
 class singleBird extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          title: "Single Bird",
-          passProps: ""
-      };
+    super(props);
+    this.state = {
+      title: "Single Bird",
+      name: 'Sparrow',
+      species: 'Birdy',
+      country: 'english',
+      loc: 'english',
+      rectype: 'english',
+      reclength: 56,
+      recordist: "billy"
+    };
+  }
+  getWiki(){
+    return LinkingIOS.openURL(
+      'https://en.wikipedia.org/wiki/'+this.state.name);
   }
 
   render(){
@@ -37,29 +46,28 @@ class singleBird extends Component {
         </View>
         <View>
           <Text style={styles.headerOne}>
-            English Name
+            English Name: {this.state.name}
           </Text>
-          <Text style={styles.wikiLink}>
-            //LinkingIOS.openURL(url) with TouchableHighlight
-            bird at wiki
-          </Text>
-          <Text style={styles.birdInfo}>
-            Species:
+          <Text style={styles.wikiLink} onPress={this.getWiki.bind(this)}>
+            Wiki
           </Text>
           <Text style={styles.birdInfo}>
-            Country:
+            Species: {this.state.species}
           </Text>
           <Text style={styles.birdInfo}>
-            Location:
+            Country: {this.state.country}
           </Text>
           <Text style={styles.birdInfo}>
-            Type of recording:
+            Location: {this.state.loc}
           </Text>
           <Text style={styles.birdInfo}>
-            Length of recording:
+            Type of recording: {this.state.rectype}
           </Text>
           <Text style={styles.birdInfo}>
-            Recorded by:
+            Length of recording: {this.state.reclength}
+          </Text>
+          <Text style={styles.birdInfo}>
+            Recorded by: {this.state.recordist}
           </Text>
         </View>
         <View style={styles.lastLine}>
