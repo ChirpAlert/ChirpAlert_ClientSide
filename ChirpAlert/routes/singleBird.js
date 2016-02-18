@@ -13,6 +13,7 @@ import React, {
   View
 } from 'react-native';
 
+
 class singleBird extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +23,14 @@ class singleBird extends Component {
       species: 'Birdy',
       country: 'english',
       loc: 'english',
+      recording: 'http:\/\/www.xeno-canto.org\/134880\/download',
       rectype: 'english',
       reclength: 56,
       recordist: "billy"
     };
+  }
+  getSound(){
+    return LinkingIOS.openURL(this.state.recording);
   }
   getWiki(){
     return LinkingIOS.openURL(
@@ -46,6 +51,7 @@ class singleBird extends Component {
     });
   }
 
+
   render(){
     return(
       <View style={styles.box}>
@@ -53,11 +59,10 @@ class singleBird extends Component {
           <Image
             style={styles.singleBirdImage1}
             source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-          />
-          <Image
-            style={styles.singleBirdImage2}
-            source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
-          />
+        />
+        <TouchableHighlight style={styles.addToListButton} underlayColor='#99d9f4 ' onPress={this.getSound.bind(this)}>
+         <Text style={styles.buttonText}>play</Text>
+       </TouchableHighlight>
         </View>
         <View>
           <Text style={styles.headerOne}>
