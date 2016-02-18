@@ -69,7 +69,7 @@ class searchResults extends Component {
   renderRow(rowData, sectionID, rowID) {
     return (
       <TouchableHighlight
-          underlayColor='#dddddd'>
+          underlayColor='#dddddd' onPress={this._goToBird.bind(this)}>
         <View style={styles.lineOne}>
           <Text style={styles.headerOne}>{rowData.bird.englishName}</Text>
           <Text style={styles.subHeader}>{rowData.bird.loc}</Text>
@@ -77,6 +77,12 @@ class searchResults extends Component {
         </View>
       </TouchableHighlight>
     );
+  }
+  _goToBird() {
+    this.props.navigator.push({
+      title: "Single Bird View",  
+      component: singleBird
+    })
   }
 
   render() {
