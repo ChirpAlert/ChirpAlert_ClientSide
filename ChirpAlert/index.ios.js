@@ -22,7 +22,6 @@ import React, {
 var landingPage = require('./routes/landingpage');
 var singleBird = require('./routes/singleBird')
 var searchResults = require('./routes/searchResults')
-var savedBirdList = require('./routes/savedBirdList')
 
 var ChirpAlert = React.createClass({
     render: function() {
@@ -31,7 +30,7 @@ var ChirpAlert = React.createClass({
                 style={styles.navigationContainer}
                 initialRoute={{
                 title: "Chirp Alert",
-                component: savedBirdList,
+                component: landingPage,
             }}/>
         );
     }
