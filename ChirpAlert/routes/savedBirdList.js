@@ -14,32 +14,6 @@ import React, {
 } from 'react-native';
 
 var singleBird = require('./singleBird');
-var savedBirds = [
-  {
-    twitterId: 'technocat-Danny',
-    bird: {
-      id: 299580,
-      englishName: 'Red-throated Loon',
-      loc: 'Richmond, Contra Costa County, California',
-      date: '2016-01-16',
-			time: '10:00',
-      imageUrl: 'http://phylopic.org/assets/images/submissions/ae2506e3-b97d-45d7-a3f9-1bfb1567e1b1.thumb.png',
-      audioUrl: 'http://www.xeno-canto.org/299580/download'
-    }
-  },
-	{
-    twitterId: 'technocat-Danny',
-    bird: {
-      id: 299530,
-      englishName: 'Horned Grebe',
-      loc: 'Richmond, Contra Costa County, California',
-      date: '2016-01-16',
-			time: '10:34',
-      imageUrl: 'http://phylopic.org/assets/images/submissions/59be555f-7a96-4608-ab71-35ab4f5e77e1.thumb.png',
-      audioUrl: 'http://www.xeno-canto.org/299530/download'
-    }
-  }
-]
 
 class savedBirdList extends Component {
   constructor(props) {
@@ -47,7 +21,7 @@ class savedBirdList extends Component {
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      birdData: savedBirds,
+      birdData: this.props.birdData,
       dataSource: dataSource
     };
   }
