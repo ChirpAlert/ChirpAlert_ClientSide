@@ -12,7 +12,7 @@ import React, {
   TouchableOpacity,
   View
 } from 'react-native';
-
+var Sound = require('react-native-sound');
 
 class singleBird extends Component {
   constructor(props) {
@@ -28,12 +28,20 @@ class singleBird extends Component {
       recording: 'http:\/\/www.xeno-canto.org\/134880\/download',
       rectype: 'english',
       reclength: 56,
-      recordist: "billy"
+      recordist: "billy",
+      sound: ''
     };
   }
   componentDidMount(){
     LinkingIOS.addEventListener('url', this._handleOpenURL);
-
+    fetch(this.props.bird.file, {
+      method: 'GET'
+    }).then(function(response) {
+      var birdSound = new Sound(response.url);
+      this.setState({
+        sound: birdSound
+      })
+    }.bind(this))
     this.setState({
       bird_id: this.props.bird.id,
       name: this.props.bird.en,
@@ -42,24 +50,16 @@ class singleBird extends Component {
       loc: this.props.bird.loc,
       recording: this.props.bird.file,
       rectype: this.props.bird.type,
-      recordist: this.props.bird.rec
+      recordist: this.props.bird.rec,
+      sound: '' 
     })
     fetch('http://127.0.0.1:3000/birds', {
       method: 'POST',
-      headers: {
-             'Accept' : 'application/json',
-             'Content-Type' : 'application/json',
-      },
-      body: JSON.stringify({
-        gen: this.props.bird.gen,
-        species: this.props.bird.sp
-      })
-    }).then(function(response) {
+      }).then(function(response) {
         if (response._bodyText != 'nope') {
           this.setState({
             image: { uri: response._bodyText }
           })
-          console.log(this.state.image);
         } else {
           return;
         }
@@ -72,7 +72,12 @@ class singleBird extends Component {
     LinkingIOS.removeEventListener('url', this._handleOpenURL);
   }
   getSound(){
-    return LinkingIOS.openURL(this.state.recording);
+    console.log(this.state.sound);
+    this.state.sound.play(this.state.sound._filename.substring(0, 3), 'http', function(err){
+      if(err){
+        console.log(err)
+      };
+    })
   }
   getWiki(){
     return LinkingIOS.openURL(
