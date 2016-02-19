@@ -134,7 +134,6 @@ class LandingPage extends Component {
 						})
 				}).then((data) => data.json())
           .then((responseData) => {
-            console.log(responseData)
             this.props.navigator.push({
               title: "Search Results",
               component: searchResults,

@@ -5,12 +5,14 @@ import React, {
   AppRegistry,
   Component,
   LinkingIOS,
-  Image,
+  Navigator,
+  NavigatorIOS,
   StyleSheet,
   Text,
   TouchableHighlight,
   TouchableOpacity,
-  View
+  View,
+	Image
 } from 'react-native';
 var audio = {};
 audio = require('react-native').NativeModules.RNAudioPlayerURL;
@@ -93,10 +95,11 @@ class singleBird extends Component {
             date: Date.now(),
             uid: 'something'
           })
-        })
-        .then(response => console.log(response))
-        .catch((error) => {
-          console.warn(error);
+        }).then(function(responseData){
+          //This is where I gave up, fuck loading the saved bird view!
+        }.bind(this))
+        .catch(function(err) {
+          console.warn(err);
         });
       }
       else {
@@ -112,11 +115,13 @@ class singleBird extends Component {
   _handleOpenURL(event) {
     var token = event.url.replace('chirpalert://&token=', '');
     AsyncStorage.setItem("token", token);
+    this._onSaveButton();
   }
   _onShareButton(){
+    var message = 'I identified a ' + this.state.name + ' near ' + this.state.loc + 'with #ChirpAlert!';
     ActionSheetIOS.showShareActionSheetWithOptions({
-      url: 'http://chirpalert.com',
-      message: 'I heard this bird on #chirpalert',
+      url: 'http://www.chirp-alert.com',
+      message: message,
     },
        (error) => {
          console.error(error);
@@ -175,7 +180,7 @@ class singleBird extends Component {
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={this._onShareButton}>
+            onPress={this._onShareButton.bind(this)}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableHighlight>
         </View>
