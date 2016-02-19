@@ -20,6 +20,7 @@ class singleBird extends Component {
     this.state = {
       bird_id: '',
       title: "Single Bird",
+      image: '',
       name: '',
       species: '',
       country: '',
@@ -32,6 +33,7 @@ class singleBird extends Component {
   }
   componentDidMount(){
     LinkingIOS.addEventListener('url', this._handleOpenURL);
+
     this.setState({
       bird_id: this.props.bird.id,
       name: this.props.bird.en,
@@ -41,9 +43,26 @@ class singleBird extends Component {
       recording: this.props.bird.file,
       rectype: this.props.bird.type,
       recordist: this.props.bird.rec
-    });
-  }
-
+    })
+    fetch('http://127.0.0.1:3000/birds', {
+      method: 'POST',
+      headers: {
+             'Accept' : 'application/json',
+             'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify({
+        gen: this.props.bird.gen,
+        species: this.props.bird.sp
+      })
+    })
+      .then(response => this.setState({
+        image: response._bodyText
+      })
+      )
+      .catch((error) => {
+        console.warn(error)
+      })
+    }
   componentWillUnmount() {
     LinkingIOS.removeEventListener('url', this._handleOpenURL);
   }
@@ -110,22 +129,29 @@ class singleBird extends Component {
   render(){
     return(
       <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={require('../header_sm.png')}>
+        </Image>
         <View style={styles.lineOne}>
           <Image
             style={styles.singleBirdImage1}
-            source={{uri: 'http://facebook.github.io/react/img/logo_og.png'}}
+            source={{this.state.image}}
             />
-          <TouchableHighlight style={styles.button} underlayColor='#99d9f4 ' onPress={this.getSound.bind(this)}>
-           <Text style={styles.buttonText}>Play sound</Text>
-         </TouchableHighlight>
         </View>
         <View>
-          <Text style={styles.headerOne}>
+          <Text style={styles.headerOne}
+            onPress={this.getWiki.bind(this)}>
             {this.state.name}
           </Text>
-          <Text style={styles.wikiLink} onPress={this.getWiki.bind(this)}>
-            Wiki
-          </Text>
+          <TouchableHighlight
+            style={styles.playButton}
+            onPress={this.getSound.bind(this)}>
+           <Image
+             style={styles.image}
+             source={require('../play.png')}>
+           </Image>
+         </TouchableHighlight>
           <Text style={styles.birdInfo}>
             Species: {this.state.species}
           </Text>
@@ -143,14 +169,12 @@ class singleBird extends Component {
           </Text>
         </View>
         <View style={styles.lastLine}>
-          <TouchableHighlight style={styles.button} underlayColor='#99d9f4' onPress={this._onSaveButton.bind(this)}>
-            <Text style={styles.buttonText}>Add to saved list</Text>
+          <TouchableHighlight         onPress={this._onSaveButton.bind(this)}>
+            <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.twitterButton} underlayColor='#99d9f4' onPress={this._onShareButton}>
-            <Image
-              style={styles.twitterImage}
-              source={{uri: 'http://designshack.net/wp-content/uploads/larrybird-2.jpg'}}
-            />
+          <TouchableHighlight
+            onPress={this._onShareButton}>
+            <Text style={styles.buttonText}>Share</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -169,6 +193,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#913991',
   },
+  image: {
+    alignSelf: 'flex-start',
+    marginBottom: 20
+  },
   buttonContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -176,10 +204,12 @@ const styles = StyleSheet.create({
   },
   header: {
     color: 'white',
-    fontSize: 60,
+    fontSize: 50,
   },
   buttonText: {
-    color: 'white',
+    color: '#57c294',
+    fontSize: 42,
+    fontFamily: 'Amatic-Bold'
   },
   button: {
     height: 50,
@@ -203,23 +233,27 @@ const styles = StyleSheet.create({
   },
   headerOne: {
     flex: 2,
-    fontSize: 30,
+    fontSize: 60,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ffedb8',
+    marginBottom: 20,
+    fontFamily: 'Amatic-Bold'
   },
   birdInfo: {
     paddingBottom: 5,
     paddingTop: 5,
     paddingLeft: 40,
-    color: 'white'
+    color: 'white',
+    fontSize: 17
   },
   lineOne: {
     justifyContent: 'space-around',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   lastLine: {
+    marginTop: 20,
     justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
@@ -233,6 +267,9 @@ const styles = StyleSheet.create({
     width: 100,
     paddingTop: 100,
   },
+  playButton: {
+    alignSelf: 'center'
+  }
 });
 
 module.exports = singleBird
