@@ -27,18 +27,42 @@ class savedBirdList extends Component {
   }
   componentDidMount(){
     this.setState({
-      dataSource:this.state.dataSource.cloneWithRows(this.state.birdData),
+      dataSource:this.state.dataSource.cloneWithRows(this.state.birdData,),
     });
   }
+
+	getSound(rowID){
+		var birdId = this.state.dataSource._dataBlob.s1[rowID].bird.id;
+		var recordingString = 'http:\/\/www.xeno-canto.org\/' + birdId + '\/download';
+		console.log(recordingString);
+		return LinkingIOS.openURL(recordingString);
+	}
+
+	  _goToBird(rowID) {
+			var queryString = 'http://127.0.0.1:3000/bird/' + this.state.dataSource._dataBlob.s1[rowID].bird.id;
+			console.log(queryString);
+	    fetch(queryString)
+				.then(function(birdData){
+					this.props.navigator.push({
+			      component: singleBird,
+			      passProps: {bird: JSON.parse(birdData._bodyText)}
+			    });
+			}.bind(this)).catch(function(err) {
+				console.warn(err);
+			});
+	  }
 
   renderRow(rowData, sectionID, rowID) {
     return (
 			<View style={styles.container}>
 				<View>
-					<TouchableHighlight style={styles.button}>
-						<Text style={styles.buttonText}>Play
-						</Text>
-					</TouchableHighlight>
+					<TouchableHighlight
+            onPress={this.getSound.bind(this, rowID)}>
+           <Image
+             style={styles.image}
+             source={require('../play.png')}>
+           </Image>
+         </TouchableHighlight>
 				</View>
 				<View>
 		      <TouchableHighlight
@@ -63,20 +87,6 @@ class savedBirdList extends Component {
 				</View>
 			</View>
     );
-  }
-
-  _goToBird(rowID) {
-		var queryString = 'http://127.0.0.1:3000/bird/' + this.state.dataSource._dataBlob.s1[rowID].bird.id;
-		console.log(queryString);
-    fetch(queryString)
-			.then(function(birdData){
-				this.props.navigator.push({
-		      component: singleBird,
-		      passProps: {bird: JSON.parse(birdData._bodyText)}
-		    });
-		}.bind(this)).catch(function(err) {
-			console.warn(err);
-		});
   }
 
   render() {
@@ -135,6 +145,9 @@ const styles = StyleSheet.create({
 		paddingLeft: 3,
 		paddingRight: 3,
 		flexWrap: 'wrap',
+  },
+  playButton: {
+    alignSelf: 'center'
   }
 });
 

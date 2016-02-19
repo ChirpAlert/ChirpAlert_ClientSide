@@ -31,16 +31,25 @@ class searchResults extends Component {
     })
   }
 
+	getSound(rowID){
+		var birdId = this.state.dataSource._dataBlob.s1[rowID].id;
+		var recordingString = 'http:\/\/www.xeno-canto.org\/' + birdId + '\/download';
+		return LinkingIOS.openURL(recordingString);
+	}
+
   renderRow(rowData, sectionID, rowID) {
     return (
       <TouchableHighlight
           underlayColor='#dddddd' onPress={this._goToBird.bind(this, rowData)}>
 				<View style={styles.container}>
 					<View>
-						<TouchableHighlight style={styles.button}>
-							<Text style={styles.buttonText}>Play
-							</Text>
-						</TouchableHighlight>
+						<TouchableHighlight
+	            onPress={this.getSound.bind(this, rowID)}>
+	           <Image
+	             style={styles.image}
+	             source={require('../play.png')}>
+	           </Image>
+	         </TouchableHighlight>
 					</View>
 					<View>
 	          <Text style={styles.headerText}> {rowData.en} </Text>

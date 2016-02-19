@@ -118,7 +118,7 @@ class singleBird extends Component {
   }
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
-      url: 'http://chirpalert.com',
+      url: 'http://www.chirp-alert.com',
       message: 'I heard this bird on #chirpalert',
     },
        (error) => {
