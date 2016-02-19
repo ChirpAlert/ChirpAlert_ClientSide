@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 20,
+    marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Amatic-Bold',
     color: 'white',
     fontSize: 32,
-    marginTop: 30
+    marginTop: 15
   }
 });
 AppRegistry.registerComponent('LandingPage', () => LandingPage);
