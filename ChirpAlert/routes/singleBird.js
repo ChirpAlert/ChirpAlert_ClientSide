@@ -51,9 +51,19 @@ class singleBird extends Component {
       rectype: this.props.bird.type,
       recordist: this.props.bird.rec,
     })
+    console.log('about to fetch image');
     fetch('http://127.0.0.1:3000/birds', {
       method: 'POST',
+      headers: {
+        'Accept' : 'application/json',
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify({
+        gen: this.props.bird.gen,
+        sp: this.props.bird.sp
+      })
       }).then(function(response) {
+        console.log(response._bodyText);
         if (response._bodyText != 'nope') {
           this.setState({
             image: { uri: response._bodyText }
