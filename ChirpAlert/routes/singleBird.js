@@ -182,7 +182,7 @@ class singleBird extends Component {
             <Text style={styles.buttonText}>Save</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={this._onShareButton}>
+            onPress={this._onShareButton.bind(this)}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableHighlight>
         </View>
