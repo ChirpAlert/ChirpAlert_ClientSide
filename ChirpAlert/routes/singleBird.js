@@ -20,6 +20,7 @@ class singleBird extends Component {
     this.state = {
       bird_id: '',
       title: "Single Bird",
+      image: '',
       name: '',
       species: '',
       country: '',
@@ -32,6 +33,7 @@ class singleBird extends Component {
   }
   componentDidMount(){
     LinkingIOS.addEventListener('url', this._handleOpenURL);
+     
     this.setState({
       bird_id: this.props.bird.id,
       name: this.props.bird.en,
@@ -42,7 +44,25 @@ class singleBird extends Component {
       rectype: this.props.bird.type,
       recordist: this.props.bird.rec
     })
-  }
+    fetch('http://127.0.0.1:3000/birds', {
+      method: 'POST',
+      headers: {
+             'Accept' : 'application/json',
+             'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify({
+        gen: this.props.bird.gen,
+        species: this.props.bird.sp
+      })
+    })
+      .then(response => this.setState({
+        image: response._bodyText 
+      })
+      )
+      .catch((error) => {
+        console.warn(error)
+      })
+    }
   componentWillUnmount() {
     LinkingIOS.removeEventListener('url', this._handleOpenURL);
   }
