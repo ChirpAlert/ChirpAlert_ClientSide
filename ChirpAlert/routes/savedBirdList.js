@@ -31,6 +31,29 @@ class savedBirdList extends Component {
     });
   }
 
+	deleteBird(rowID){
+		var birdId = this.state.dataSource._dataBlob.s1[rowID].bird.id;
+		AsyncStorage.getItem("token").then(function(token){
+      if(token){
+        fetch('http://127.0.0.1:3000/users/deletebird/' + birdId, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+				.then(function(){
+					console.log('butt');
+				})
+        .catch(function(err) {
+          console.warn(err);
+        });
+      }
+    }.bind(this))
+      .catch(function(err){
+        console.log(err);
+      });
+	}
+
 	getSound(rowID){
 		var birdId = this.state.dataSource._dataBlob.s1[rowID].bird.id;
 		var recordingString = 'http:\/\/www.xeno-canto.org\/' + birdId + '\/download';
@@ -69,8 +92,15 @@ class savedBirdList extends Component {
 					 onPress={this._goToBird.bind(this, rowID)}>
 						<View style={styles.infoContainer}>
 							<View style={styles.columnContainer}>
-				        <View style={styles.birdInfo}>
+				        <View style={styles.birdHeader}>
 				          <Text style={styles.headerText}>{rowData.bird.name}</Text>
+									<TouchableHighlight
+										style={styles.deleteIcon}
+										onPress={this.deleteBird.bind(this, rowID)}>
+									 <Image
+										 source={require('../delete.png')}>
+									 </Image>
+								 </TouchableHighlight>
 								</View>
 								<View style={styles.birdInfo}>
 				          <Text style={styles.birdText}>{rowData.bird.loc}</Text>
@@ -144,9 +174,19 @@ const styles = StyleSheet.create({
 		paddingRight: 3,
 		flexWrap: 'wrap',
   },
+	birdHeader: {
+		width: 350,
+		paddingLeft: 3,
+		paddingRight: 3,
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
   playButton: {
     alignSelf: 'center'
-  }
+  },
+	deleteIcon: {
+		alignSelf: 'center'
+	}
 });
 
 
