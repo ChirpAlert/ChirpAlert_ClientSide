@@ -21,7 +21,7 @@ class searchResults extends Component {
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      birdData: this.props.birdData, 
+      birdData: this.props.birdData,
       dataSource: dataSource
     };
   }
@@ -31,6 +31,12 @@ class searchResults extends Component {
     })
   }
 
+	getSound(rowID){
+		var birdId = this.state.dataSource._dataBlob.s1[rowID].id;
+		var recordingString = 'http:\/\/www.xeno-canto.org\/' + birdId + '\/download';
+		return LinkingIOS.openURL(recordingString);
+	}
+
   renderRow(rowData, sectionID, rowID) {
     return (
       <TouchableHighlight
@@ -38,7 +44,13 @@ class searchResults extends Component {
         <View style={styles.lineOne}>
           <Text style={styles.headerOne}> {rowData.en} </Text>
           <Text style={styles.subHeader}> {rowData.en} </Text>
-          <Image style={styles.playIcon} source={{uri: 'http://placehold.it/50x50'}}/>
+						<TouchableHighlight
+	            onPress={this.getSound.bind(this, rowID)}>
+	           <Image
+	             style={styles.image}
+	             source={require('../play.png')}>
+	           </Image>
+	         </TouchableHighlight>
         </View>
       </TouchableHighlight>
     );
@@ -53,7 +65,7 @@ class searchResults extends Component {
 
   render() {
     return (
-      <ListView 
+      <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderRow.bind(this)}/>
     );
