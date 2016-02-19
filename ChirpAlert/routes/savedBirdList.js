@@ -143,11 +143,17 @@ class savedBirdList extends Component {
     );
   }
   _goToBird(rowID) {
-    console.log(rowID);
-    this.props.navigator.push({
-      component: singleBird,
-      passProps: {name: this.state.dataSource._dataBlob.s1[rowID].bird.name}
-    })
+		var queryString = 'http://127.0.0.1:3000/bird/' + this.state.dataSource._dataBlob.s1[rowID].bird.id;
+		console.log(queryString);
+    fetch(queryString)
+			.then(function(birdData){
+				this.props.navigator.push({
+		      component: singleBird,
+		      passProps: {bird: JSON.parse(birdData._bodyText)}
+		    });
+		}.bind(this)).catch(function(err) {
+			console.warn(err);
+		});
   }
 
   render() {

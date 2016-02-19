@@ -41,8 +41,9 @@ class singleBird extends Component {
       recording: this.props.bird.file,
       rectype: this.props.bird.type,
       recordist: this.props.bird.rec
-    })
+    });
   }
+
   componentWillUnmount() {
     LinkingIOS.removeEventListener('url', this._handleOpenURL);
   }
