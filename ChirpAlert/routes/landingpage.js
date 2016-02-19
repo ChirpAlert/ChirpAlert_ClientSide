@@ -102,8 +102,8 @@ class LandingPage extends Component {
           .then((responseData) => {
             console.log(responseData);
             this.props.navigator.push({
-              title: "Search Results",
-              component: searchResults,
+              title: "Saved Birds",
+              component: savedBirdList,
               passProps: {birdData: responseData},
             });
           }).catch((error) => {
