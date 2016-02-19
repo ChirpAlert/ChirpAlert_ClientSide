@@ -157,19 +157,6 @@ class LandingPage extends Component {
           source={require('../header.png')}>
         </Image>
         <Text style={styles.pun}>{this.state.pun}</Text>
-
-      {/*<TouchableHighlight style={styles.button}
-      underlayColor='#99d9f4' onPress={this._onPressButton}>
-      <Text style={styles.buttonText}>Go</Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.button}
-      underlayColor='#99d9f4' onPress={this._onPressOtherButton}>
-      <Text style={styles.buttonText}>Go</Text>
-      </TouchableHighlight>
-      <TouchableHighlight style={styles.button}
-      underlayColor='#99d9f4' onPress={this._onShareButton}>
-      <Text style={styles.buttonText}>Share</Text>
-      </TouchableHighlight>*/}
         <View style={styles.buttonContainer}>
           <TouchableHighlight
             onPress={this._onLocateButton.bind(this)}>
