@@ -74,20 +74,6 @@ class LandingPage extends Component {
       });
     });
   }
-  _onShareButton(){
-    ActionSheetIOS.showShareActionSheetWithOptions({
-      url: 'http://chirpalert.com',
-      message: 'I saw a fucking bird #chirpalert',
-    },
-       (error) => {
-         console.error(error);
-    },
-    (success, method) => {
-      if (success) {
-        console.log('shared');
-      }
-    });
-  }
   _onSaveListButton(){
     AsyncStorage.getItem("token").then(function(token){
       if(token){

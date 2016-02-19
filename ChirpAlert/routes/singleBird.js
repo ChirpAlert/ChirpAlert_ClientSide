@@ -96,7 +96,6 @@ class singleBird extends Component {
             uid: 'something'
           })
         }).then(function(responseData){
-          //This is where I gave up, fuck loading the saved bird view!
         }.bind(this))
         .catch(function(err) {
           console.warn(err);
@@ -118,7 +117,7 @@ class singleBird extends Component {
     this._onSaveButton();
   }
   _onShareButton(){
-    var message = 'I identified a ' + this.state.name + ' near ' + this.state.loc + 'with #ChirpAlert!';
+    var message = 'I identified a ' + this.state.name + ' near ' + this.state.loc + ' with #ChirpAlert!';
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: 'http://www.chirp-alert.com',
       message: message,
