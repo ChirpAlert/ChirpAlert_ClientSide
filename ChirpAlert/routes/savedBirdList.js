@@ -14,32 +14,6 @@ import React, {
 } from 'react-native';
 
 var singleBird = require('./singleBird');
-var savedBirds = [
-  {
-    twitterId: 'technocat-Danny',
-    bird: {
-      id: 299580,
-      englishName: 'Red-throated Loon',
-      loc: 'Richmond, Contra Costa County, California',
-      date: '2016-01-16',
-			time: '10:00',
-      imageUrl: 'http://phylopic.org/assets/images/submissions/ae2506e3-b97d-45d7-a3f9-1bfb1567e1b1.thumb.png',
-      audioUrl: 'http://www.xeno-canto.org/299580/download'
-    }
-  },
-	{
-    twitterId: 'technocat-Danny',
-    bird: {
-      id: 299530,
-      englishName: 'Horned Grebe',
-      loc: 'Richmond, Contra Costa County, California',
-      date: '2016-01-16',
-			time: '10:34',
-      imageUrl: 'http://phylopic.org/assets/images/submissions/59be555f-7a96-4608-ab71-35ab4f5e77e1.thumb.png',
-      audioUrl: 'http://www.xeno-canto.org/299530/download'
-    }
-  }
-]
 
 class savedBirdList extends Component {
   constructor(props) {
@@ -47,24 +21,48 @@ class savedBirdList extends Component {
     var dataSource = new ListView.DataSource(
       {rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      birdData: savedBirds,
+      birdData: this.props.birdData,
       dataSource: dataSource
     };
   }
   componentDidMount(){
     this.setState({
-      dataSource:this.state.dataSource.cloneWithRows(this.state.birdData),
+      dataSource:this.state.dataSource.cloneWithRows(this.state.birdData,),
     });
   }
+
+	getSound(rowID){
+		var birdId = this.state.dataSource._dataBlob.s1[rowID].bird.id;
+		var recordingString = 'http:\/\/www.xeno-canto.org\/' + birdId + '\/download';
+		console.log(recordingString);
+		return LinkingIOS.openURL(recordingString);
+	}
+
+	  _goToBird(rowID) {
+			var queryString = 'http://127.0.0.1:3000/bird/' + this.state.dataSource._dataBlob.s1[rowID].bird.id;
+			console.log(queryString);
+	    fetch(queryString)
+				.then(function(birdData){
+					this.props.navigator.push({
+			      component: singleBird,
+			      passProps: {bird: JSON.parse(birdData._bodyText)}
+			    });
+			}.bind(this)).catch(function(err) {
+				console.warn(err);
+			});
+	  }
 
   renderRow(rowData, sectionID, rowID) {
     return (
 			<View style={styles.container}>
 				<View>
-					<TouchableHighlight style={styles.button}>
-						<Text style={styles.buttonText}>Play
-						</Text>
-					</TouchableHighlight>
+					<TouchableHighlight
+            onPress={this.getSound.bind(this, rowID)}>
+           <Image
+             style={styles.image}
+             source={require('../play.png')}>
+           </Image>
+         </TouchableHighlight>
 				</View>
 				<View>
 		      <TouchableHighlight
@@ -89,20 +87,6 @@ class savedBirdList extends Component {
 				</View>
 			</View>
     );
-  }
-
-  _goToBird(rowID) {
-		var queryString = 'http://127.0.0.1:3000/bird/' + this.state.dataSource._dataBlob.s1[rowID].bird.id;
-		console.log(queryString);
-    fetch(queryString)
-			.then(function(birdData){
-				this.props.navigator.push({
-		      component: singleBird,
-		      passProps: {bird: JSON.parse(birdData._bodyText)}
-		    });
-		}.bind(this)).catch(function(err) {
-			console.warn(err);
-		});
   }
 
   render() {
@@ -161,6 +145,9 @@ const styles = StyleSheet.create({
 		paddingLeft: 3,
 		paddingRight: 3,
 		flexWrap: 'wrap',
+  },
+  playButton: {
+    alignSelf: 'center'
   }
 });
 
