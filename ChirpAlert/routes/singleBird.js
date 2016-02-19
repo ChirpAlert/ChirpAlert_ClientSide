@@ -20,7 +20,7 @@ class singleBird extends Component {
     this.state = {
       bird_id: '',
       title: "Single Bird",
-      image: '',
+      image: require('../no_image.png'),
       name: '',
       species: '',
       country: '',
@@ -54,11 +54,16 @@ class singleBird extends Component {
         gen: this.props.bird.gen,
         species: this.props.bird.sp
       })
-    })
-      .then(response => this.setState({
-        image: response._bodyText
-      })
-      )
+    }).then(function(response) {
+        if (response._bodyText != 'nope') {
+          this.setState({
+            image: { uri: response._bodyText }
+          })
+          console.log(this.state.image);
+        } else {
+          return;
+        }
+      }.bind(this))
       .catch((error) => {
         console.warn(error)
       })
@@ -136,8 +141,8 @@ class singleBird extends Component {
         <View style={styles.lineOne}>
           <Image
             style={styles.singleBirdImage1}
-            source={{this.state.image}}
-            />
+            source={this.state.image}>
+          </Image>
         </View>
         <View>
           <Text style={styles.headerOne}
@@ -248,24 +253,19 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   lineOne: {
-    justifyContent: 'space-around',
-    flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   lastLine: {
     marginTop: 20,
     justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
-
-  },
-  twitterImage: {
-    width: 100,
-    height: 100,
   },
   singleBirdImage1: {
-    width: 100,
-    paddingTop: 100,
+    alignSelf: 'center',
+    width: 64,
+    height: 64
   },
   playButton: {
     alignSelf: 'center'
