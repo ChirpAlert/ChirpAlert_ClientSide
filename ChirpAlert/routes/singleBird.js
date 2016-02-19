@@ -118,7 +118,7 @@ class singleBird extends Component {
     this._onSaveButton();
   }
   _onShareButton(){
-    var message = 'I identified a ' + this.state.name + ' near ' + this.state.loc + 'with #ChirpAlert!';
+    var message = 'I identified a ' + this.state.name + ' near ' + this.state.loc + ' with #ChirpAlert!';
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: 'http://www.chirp-alert.com',
       message: message,
