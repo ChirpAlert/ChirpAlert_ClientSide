@@ -79,20 +79,21 @@ class searchResults extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		borderColor: '#000033',
-		borderWidth: 1,
+		borderColor: '#2a092a',
 		backgroundColor: '#913991',
 		padding: 3,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		paddingBottom: 25
 	},
 	infoContainer: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		alignItems: 'flex-start'
+		alignItems: 'flex-start',
+		paddingBottom: 20
 	},
   headerText: {
     color: '#FFEDB8',
-    fontSize: 32,
+    fontSize: 50,
 		fontFamily: 'Amatic-Bold',
   },
   buttonText: {
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
 	birdText: {
 		color: 'white',
-		fontSize: 12,
+		fontSize: 17,
 	},
   button: {
     height: 50,

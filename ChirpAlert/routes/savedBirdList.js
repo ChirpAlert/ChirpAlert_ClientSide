@@ -70,16 +70,13 @@ class savedBirdList extends Component {
 						<View style={styles.infoContainer}>
 							<View style={styles.columnContainer}>
 				        <View style={styles.birdInfo}>
-				          <Text style={styles.headerText}>{rowData.bird.englishName}</Text>
+				          <Text style={styles.headerText}>{rowData.bird.name}</Text>
 								</View>
 								<View style={styles.birdInfo}>
-				          <Text style={styles.birdText}>Location: {rowData.bird.loc}</Text>
+				          <Text style={styles.birdText}>{rowData.bird.loc}</Text>
 								</View>
 								<View style={styles.birdInfo}>
-									<Text style={styles.birdText}>Date: {rowData.bird.date}</Text>
-								</View>
-								<View style={styles.birdInfo}>
-									<Text style={styles.birdText}>Time: {rowData.bird.time}</Text>
+									<Text style={styles.birdText}>{new Date(rowData.bird.time).toString()}</Text>
 								</View>
 							</View>
 						</View>
@@ -101,8 +98,7 @@ class savedBirdList extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		borderColor: '#000033',
-		borderWidth: 1,
+		borderColor: '#2a092a',
 		backgroundColor: '#913991',
 		padding: 3,
 		flexDirection: 'row'
@@ -110,11 +106,12 @@ const styles = StyleSheet.create({
 	infoContainer: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		alignItems: 'flex-start'
+		alignItems: 'flex-start',
+		paddingBottom: 20
 	},
   headerText: {
     color: '#FFEDB8',
-    fontSize: 32,
+    fontSize: 40,
 		fontFamily: 'Amatic-Bold',
   },
   buttonText: {
@@ -124,7 +121,7 @@ const styles = StyleSheet.create({
   },
 	birdText: {
 		color: 'white',
-		fontSize: 12
+		fontSize: 15
 	},
   button: {
     height: 50,
@@ -142,6 +139,7 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap'
 	},
   birdInfo: {
+		width: 350,
 		paddingLeft: 3,
 		paddingRight: 3,
 		flexWrap: 'wrap',
