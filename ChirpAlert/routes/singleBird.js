@@ -12,7 +12,8 @@ import React, {
   TouchableOpacity,
   View
 } from 'react-native';
-var Sound = require('react-native-sound');
+var audio = {};
+audio = require('react-native').NativeModules.RNAudioPlayerURL;
 
 class singleBird extends Component {
   constructor(props) {
@@ -29,7 +30,6 @@ class singleBird extends Component {
       rectype: 'english',
       reclength: 56,
       recordist: "billy",
-      sound: ''
     };
   }
   componentDidMount(){
@@ -37,10 +37,7 @@ class singleBird extends Component {
     fetch(this.props.bird.file, {
       method: 'GET'
     }).then(function(response) {
-      var birdSound = new Sound(response.url);
-      this.setState({
-        sound: birdSound
-      })
+        audio.initWithURL(response.url)
     }.bind(this))
     this.setState({
       bird_id: this.props.bird.id,
@@ -51,7 +48,6 @@ class singleBird extends Component {
       recording: this.props.bird.file,
       rectype: this.props.bird.type,
       recordist: this.props.bird.rec,
-      sound: '' 
     })
     fetch('http://127.0.0.1:3000/birds', {
       method: 'POST',
@@ -70,14 +66,10 @@ class singleBird extends Component {
     }
   componentWillUnmount() {
     LinkingIOS.removeEventListener('url', this._handleOpenURL);
+    audio.pause();
   }
   getSound(){
-    console.log(this.state.sound);
-    this.state.sound.play(this.state.sound._filename.substring(0, 3), 'http', function(err){
-      if(err){
-        console.log(err)
-      };
-    })
+    audio.play()
   }
   getWiki(){
     return LinkingIOS.openURL(
@@ -123,7 +115,7 @@ class singleBird extends Component {
   }
   _onShareButton(){
     ActionSheetIOS.showShareActionSheetWithOptions({
-      url: 'http://www.chirp-alert.com',
+      url: 'http://chirpalert.com',
       message: 'I heard this bird on #chirpalert',
     },
        (error) => {
