@@ -96,7 +96,6 @@ class singleBird extends Component {
             uid: 'something'
           })
         }).then(function(responseData){
-          //This is where I gave up, fuck loading the saved bird view!
         }.bind(this))
         .catch(function(err) {
           console.warn(err);
