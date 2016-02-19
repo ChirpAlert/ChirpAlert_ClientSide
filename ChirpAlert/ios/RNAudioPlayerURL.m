@@ -37,6 +37,7 @@ RCT_EXPORT_METHOD(play){
 
 RCT_EXPORT_METHOD(pause){
   [self.audioPlayer pause];
+  self.audioPlayer = nil;
 }
 
 RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)toTime){
