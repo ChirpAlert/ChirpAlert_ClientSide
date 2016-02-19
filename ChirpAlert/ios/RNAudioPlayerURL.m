@@ -20,8 +20,7 @@ RCT_EXPORT_METHOD(initWithURL:(NSString *)url){
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification{
-	[self.audioItem seekToTime:kCMTimeZero];
-	[self.bridge.eventDispatcher sendAppEventWithName:@"AudioEnded" body:@{@"event": @"finished"}];
+  self.audioPlayer = nil;
 }
 
 RCT_EXPORT_METHOD(getDuration:(RCTResponseSenderBlock)callback){
