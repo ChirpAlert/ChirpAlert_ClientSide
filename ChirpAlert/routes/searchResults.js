@@ -41,9 +41,8 @@ class searchResults extends Component {
     return (
       <TouchableHighlight
           underlayColor='#dddddd' onPress={this._goToBird.bind(this, rowData)}>
-        <View style={styles.lineOne}>
-          <Text style={styles.headerOne}> {rowData.en} </Text>
-          <Text style={styles.subHeader}> {rowData.en} </Text>
+				<View style={styles.container}>
+					<View>
 						<TouchableHighlight
 	            onPress={this.getSound.bind(this, rowID)}>
 	           <Image
@@ -51,7 +50,11 @@ class searchResults extends Component {
 	             source={require('../play.png')}>
 	           </Image>
 	         </TouchableHighlight>
-        </View>
+					</View>
+					<View>
+	          <Text style={styles.headerText}> {rowData.en} </Text>
+	        </View>
+				</View>
       </TouchableHighlight>
     );
   }
@@ -74,97 +77,56 @@ class searchResults extends Component {
 }
 
 const styles = StyleSheet.create({
-  wikiLink: {
-    fontSize: 12,
-  },
-  headerOne: {
-    flex: 2,
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  subHeader: {
-    flex: 1,
-  },
-  birdInfo: {
-    padding: 10,
-  },
-  birdPic: {
-    width: 50,
-    height: 50
-  },
-  playIcon: {
-    width: 50,
-    height: 50
-  },
-  box: {
-    flex: 1,
-    backgroundColor: '#527FE4',
-    borderColor: '#000033',
-    borderWidth: 1,
-    paddingTop: 75,
-    backgroundColor: '#809C00',
-    alignItems: 'stretch',
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#809C00',
-    paddingTop: 100,
-  },
-  lineOne: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: 'lightgrey',
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-  lastLine: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  twitterImage: {
-    width: 100,
-    height: 100,
-  },
-  singleBirdImage1: {
-    width: 100,
-    paddingTop: 100,
-  },
-  singleBirdImage2: {
-    width: 100,
-    paddingTop: 100,
-  },
-  welcome: {
-    flex: 2,
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 36,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+	container: {
+		flex: 1,
+		borderColor: '#000033',
+		borderWidth: 1,
+		backgroundColor: '#913991',
+		padding: 3,
+		flexDirection: 'row'
+	},
+	infoContainer: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		alignItems: 'flex-start'
+	},
+  headerText: {
+    color: '#FFEDB8',
+    fontSize: 32,
+		fontFamily: 'Amatic-Bold',
   },
   buttonText: {
     color: 'white',
-    textAlign: 'center',
+		fontFamily: 'Amatic-Bold',
+		fontSize: 24,
   },
-  addToListButton: {
-    height: 36,
-    width: 150,
-    backgroundColor: '#48BBEC ',
-    borderColor: '#48BBEC ',
+	birdText: {
+		color: 'white',
+		fontSize: 12,
+	},
+  button: {
+    height: 50,
+    width: 50,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+		marginLeft: 10,
+		marginRight: 10
+  },
+	columnContainer: {
+		flex: 3,
+		flexDirection: 'column',
+		flexWrap: 'wrap'
+	},
+  birdInfo: {
+		paddingLeft: 3,
+		paddingRight: 3,
+		flexWrap: 'wrap',
   }
 });
-
 
 
 module.exports = searchResults
